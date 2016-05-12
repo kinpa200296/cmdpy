@@ -40,12 +40,18 @@ class CmdPy(Cmd):
                 else:
                     self.__logger.debug('Added command {name}'.format(name=cmd.__name__))
 
-    def precmd(self, line):
+    def postcmd(self, stop, line):
         if self.no_prompt:
             self.prompt = ''
         else:
             self.prompt = os.path.abspath(os.curdir) + '> '
-        return Cmd.precmd(self, line)
+        return Cmd.postcmd(self, stop, line)
+
+    def do_load(self, arg=None):
+        app.no_prompt = True
+        res = Cmd.do_load(self, arg)
+        app.no_prompt = False
+        return res
 
     def help_q(self):
         self.poutput('Finish interpreter')
