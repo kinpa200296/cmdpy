@@ -5,4 +5,3 @@ A command line processor
  - cmd
  - cmd2
  - readline
- - pywin32 on Windows, xclip on *nix
